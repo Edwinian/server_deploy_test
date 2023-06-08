@@ -11,6 +11,6 @@ app.get("/test", (req, res) => {
   res.send("server connected");
 });
 
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => console.log(`Express app running on PORT ${PORT}`));
+app.listen(process.env.PORT, () =>
+  console.log(`Express app running on PORT ${process.env.PORT}`)
+);
