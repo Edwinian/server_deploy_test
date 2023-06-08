@@ -7,7 +7,7 @@ app.use(cors);
 // let the react app to handle any unknown routes
 // serve up the index.html if express does'nt recognize the route
 const path = require("path");
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("server connected");
 });
 
