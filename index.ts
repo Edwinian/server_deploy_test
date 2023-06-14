@@ -1,24 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Endpoint } from "./types/endpoint.enum";
-import { ErrorCode } from "./types/errorCode.enum";
+import requestLogger from "./middlewares/requestLogger";
+import connectDB from "./connectDB";
 dotenv.config();
 
-const fs = require("fs/promises");
+const routes = require("./routes");
 const app = express();
-app.use(cors());
 const port = process.env.PORT;
 
-app.get(Endpoint.users, async (req, res) => {
-  try {
-    const data = await fs.readFile("data.json");
-    const parseData = JSON.parse(data);
+// connectDB();
 
-    return res.send(parseData);
-  } catch (error) {
-    res.status(ErrorCode.getUsersError).send(error);
-  }
-});
+app.use(cors());
+app.use(requestLogger);
+app.use(routes);
+app.use(express.urlencoded({ extended: false }));
 
 app.listen(port, () => console.log(`Express app running on port ${port}`));
